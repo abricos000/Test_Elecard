@@ -1,17 +1,27 @@
-.conreiner{
+.conteiner{
     display: flex;
     justify-content: space-between;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-box-sizing: border-box;
-margin-bottom: 100px;
+    box-sizing: border-box;
+    margin-bottom: 100px;
+    padding-left: 20px;
 }
 .buttons{
-    /* display: block; */
     width: 150px;
     display: flex;
-flex-wrap: wrap;
-    /* flex-wrap: nowrap; */
-    /* display: flex; */
+    flex-wrap: wrap;
 }
+
+@media screen and (min-width: 550px) and (max-width: 900px){
+    .conteiner{
+        margin-bottom: 30px;
+    }
+}
+@media screen and (max-width: 550px){
+    .conteiner{
+        margin-bottom: 20px;
+    }
+}
+

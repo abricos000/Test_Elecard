@@ -4,13 +4,9 @@ import axios from "axios"
 import { PageTreeList } from "../PageTreeList/PageTreeList"
 import { CardsPage } from "../CardsPage/CardsPage"
 
-
 export const Main = ({contentMain}) => {
-
     const RequestURL = "http://contest.elecard.ru/frontend_data/catalog.json"
-
     const [posts, setPosts] = useState([])
-
     const [loadind, setLoading] = useState(false)// идентификатор закрузки
     const [mainPost, setMainPost] = useState([])
 
@@ -64,7 +60,3 @@ export const Main = ({contentMain}) => {
         </main>
     )
 }
-
-// название,
-// пагинация на древовидном списке,
-// сделать скилетоны
