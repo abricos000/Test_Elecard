@@ -1,0 +1,17 @@
+.conreiner{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+box-sizing: border-box;
+margin-bottom: 100px;
+}
+.buttons{
+    /* display: block; */
+    width: 150px;
+    display: flex;
+flex-wrap: wrap;
+    /* flex-wrap: nowrap; */
+    /* display: flex; */
+}

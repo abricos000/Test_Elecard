@@ -1,0 +1,30 @@
+{
+    "parser": "@javascript-eslint/parser",
+    "plugins": ["prettier", "import", "@javascript-eslint"],
+    "extends": [
+        "plugin:prettier/recommended",
+        "prettier", 
+        "plugin:@javascript-eslint/recommended", 
+        "eslint:recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourcejava": "module",
+        "project": "./jsconfig.json"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "jest": true
+    },
+    "rules": {
+        "@javascript-eslint/no-explicit-any": 2,
+        "no-debugger": "off",
+        "no-console": 0,
+        "class-methods-use-this": "off"
+    },
+    "globals": {
+        "JSX":"readonly"
+    }
+}
