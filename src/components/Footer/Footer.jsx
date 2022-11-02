@@ -1,9 +1,10 @@
-import s from "./Footer.module.css"
+import React from 'react';
+import s from './footer.module.css';
 
-export const Footer = ({children}) => {
-    return(
-        <footer className={s.footer_content}>
-           {children}
-        </footer>
-    )
+export function Footer({ children }) {
+  return (
+    <footer className={s.footerContent}>
+      {children}
+    </footer>
+  );
 }

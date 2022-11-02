@@ -1,26 +1,29 @@
-// import { TransitionGroup, CSSTransition } from "react-transition-group"
-import { Card } from "./Card/Card"
-import s from "./Cards.module.css"
+import React from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { Card } from './Card/Card';
+import s from './cards.module.css';
+import './cards.css';
 
-export const Cards = ({currentPost, loadind, remove}) => {
+export function Cards({ onCurrentPost, onRemove }) {
+  if (!onCurrentPost.length) {
+    return <h2>Картинок нет</h2>;
+  }
 
-    if(!currentPost.length){
-       return <h2>Картинок нет</h2>
-    }
+  return (
+    <TransitionGroup
+      className={s.cards}
 
-    return(
-        <div className={s.cards}>
-            {/* <TransitionGroup> */}
-                {currentPost.map((el, index) =>
-                // <CSSTransition
-                //     key={index}
-                //     timeout={500}
-                //     classNames="card"
-                // >
-                    <Card loadind={loadind} key={index} remove={remove}  post={el} />
-                // </CSSTransition>
-                )}
-            {/* </TransitionGroup> */}
-            </div>
-    )
+    >
+      {onCurrentPost.map((el) => (
+        <CSSTransition
+          key={el.id}
+          timeout={300}
+          classNames="card"
+        >
+          <Card onRemove={onRemove} onPost={el} />
+        </CSSTransition>
+      ))}
+    </TransitionGroup>
+
+  );
 }

@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
-import { useState } from 'react';
 
-const App = () => {
-  const [contentMain, setContentMain] = useState('')
+function App() {
+  // overflow: hidden; для тега html
+  // pointer-events: none для картинки по умолчанию и когда наводишь на элемент в списке,
+  // то меняешь его на auto
+  const [renderMethod, setRenderMethod] = useState('cards');
 
-  const renderTree = (e) => {
-    setContentMain(e.target.value)
-  }
-  
-  const renderCards = (e) => {
-    setContentMain(e.target.value)
-  }
+  const handleChangeRenderMethod = (e) => {
+    setRenderMethod(e.target.value);
+  };
 
   return (
     <div>
-      <Header renderTree = {renderTree} renderCards={renderCards}/>
-      <Main contentMain={contentMain}/>
+      <Header onChangeRenderMethod={handleChangeRenderMethod} />
+      <Main onRenderMethod={renderMethod} />
       <Footer>Footer</Footer>
     </div>
   );

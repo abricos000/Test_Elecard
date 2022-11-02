@@ -1,62 +1,43 @@
-import s from "./Main.module.css"
-import { useEffect, useState } from "react"
-import axios from "axios"
-import { PageTreeList } from "../PageTreeList/PageTreeList"
-import { CardsPage } from "../CardsPage/CardsPage"
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import s from './main.module.css';
+import { PageTreeList } from '../PageTreeList/PageTreeList';
+import { CardsPage } from '../CardsPage/CardsPage';
+import { RenderMethod } from '../../constants/render-method';
 
-export const Main = ({contentMain}) => {
-    const RequestURL = "http://contest.elecard.ru/frontend_data/catalog.json"
-    const [posts, setPosts] = useState([])
-    const [loadind, setLoading] = useState(false)// идентификатор закрузки
-    const [mainPost, setMainPost] = useState([])
+export function Main({ onRenderMethod }) {
+  const requestURL = 'http://contest.elecard.ru/frontend_data/catalog.json';
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);// идентификатор закрузки
+  const [mainPost, setMainPost] = useState([]);
 
-    useEffect(() => {
-        // fetch(RequestURL)
-        // .then((res) => {return res.json()})
-        // .then((arr) => {setPosts(arr)})
-        const getPosts = async() => {
-            setLoading(true)
-            const res = await (await axios.get(RequestURL))
+  useEffect(() => {
+    const getPosts = async () => {
+      setLoading(true);
+      axios.get(requestURL).then(({ data }) => {
+        const newData = data.map((imageData, index) => ({ ...imageData, id: index }));
+        setPosts(newData);
+        setMainPost(newData);
+      }).finally(() => {
+        setLoading(false);
+      });
+    };
+    getPosts();
+  }, []);
 
-            for(let i=0; i<res.data.length; i++){
-               res.data[i].id = i
-            }
-
-            setPosts(res.data)
-            setLoading(false)
-            setMainPost(res.data)
-        }
-        getPosts()
-    },[])
-
-    const rerenderPage = () =>{
-        if (contentMain === "cards"){
-            return (
-                <CardsPage
-                    posts={posts}
-                    setPosts={setPosts}
-                    setLoading={setLoading}
-                    loadind={loadind}
-                    mainPost={mainPost}
-                />)
-        }
-        else if (contentMain === "tree"){
-            return <PageTreeList posts={posts}/>
-        }
-        else{
-            return (
-                <CardsPage
-                    posts={posts}
-                    setPosts={setPosts}
-                    setLoading={setLoading}
-                    loadind={loadind}
-                    mainPost={mainPost}
-                />)
-        }
-    }
-    return(
-        <main className={s.main__content}>
-        {rerenderPage()}
-        </main>
-    )
+  return (
+    <main className={s.mainContent}>
+      {onRenderMethod === RenderMethod.cards ? (
+        <CardsPage
+          onPosts={posts}
+          onSetPosts={setPosts}
+          onSetLoading={setLoading}
+          onLoading={loading}
+          onMainPost={mainPost}
+        />
+      ) : (
+        <PageTreeList posts={posts} />
+      )}
+    </main>
+  );
 }

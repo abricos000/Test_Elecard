@@ -1,16 +1,25 @@
-import React from "react";
-import s from "./MyRadioButton.module.css";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react';
+import s from './myRadioButton.module.css';
 
-const MyRadioButton = ({options, defaultValue, value, onChange}) => {
-    return(
-        <div>
-            { options.map(option => 
-                <p className={s.radio__input} key={option.value} >
-                    <input value={option.value} type="radio" name="sort" onClick={event => onChange(event.target.value)}/>
-                    {option.name}
-                </p>)}
-        </div>
-    )
+function MyRadioButton({ onSortData, onChange }) {
+  return (
+    <div>
+      { onSortData.map((option) => (
+        <p className={s.radioInput} key={option.value}>
+          <label>
+            <input
+              value={option.value}
+              type="radio"
+              name="sort"
+              onClick={(event) => onChange(event.target.value)}
+            />
+            {option.name}
+          </label>
+        </p>
+      ))}
+    </div>
+  );
 }
 
 export default MyRadioButton;

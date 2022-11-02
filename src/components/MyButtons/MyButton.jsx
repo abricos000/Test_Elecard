@@ -1,9 +1,10 @@
-import s from "./MyButton.module.css"
+import React from 'react';
+import s from './myButton.module.css';
 
-export const MyButton = ({children, click}) => {
-    return(
-        <button onClick={click} className={s.btn} >
-           {children}
-        </button>
-    )
+export function MyButton({ children, click }) {
+  return (
+    <button type="button" onClick={click} className={s.btn}>
+      {children}
+    </button>
+  );
 }

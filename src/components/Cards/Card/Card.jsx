@@ -1,17 +1,36 @@
-import s from "./Card.module.css"
+import React from 'react';
+import { MathDataMethod } from '../../../constants/math-method';
+import s from './card.module.css';
 
-export const Card = ({post, remove}) => {
+export function Card({ onPost, onRemove }) {
+  const data = new Date(onPost.timestamp).toLocaleDateString('en-US');
+  const KB = Math.ceil(onPost.filesize / MathDataMethod.bInKb);
+  const B = onPost.filesize % MathDataMethod.bInKb;
+  const imageUrl = `http://contest.elecard.ru/frontend_data/${onPost.image}`;
 
-    let data = new Date(post.timestamp).toLocaleDateString("en-US")
-    const KB = Math.ceil(post.filesize/1024)
-    const B = post.filesize%1000
-    const imageUrl ="http://contest.elecard.ru/frontend_data/" + post.image
-
-    return(
-        <div className={s.card}>
-            <button className={s.btn} onClick={() => remove(post)} >&times;</button>
-            <img className={s.image} src={imageUrl} alt="изображение не прогрузилась" />
-            <p className={s.text}> <b>категория:</b> {post.category} <b>размер файла:</b> {KB}Кб {B}байт <b>месяц/число/год: </b> {data} </p>
-        </div>
-    )
+  return (
+    <div className={s.card}>
+      <button type="button" className={s.btn} onClick={() => onRemove(onPost)}>&times;</button>
+      <img className={s.image} src={imageUrl} alt="изображение не прогрузилась" />
+      <p className={s.text}>
+        {' '}
+        <b>категория:</b>
+        {' '}
+        {onPost.category}
+        {' '}
+        <b>размер файла:</b>
+        {' '}
+        {KB}
+        Кб
+        {' '}
+        {B}
+        байт
+        {' '}
+        <b>месяц/число/год: </b>
+        {' '}
+        {data}
+        {' '}
+      </p>
+    </div>
+  );
 }

@@ -1,12 +1,12 @@
-.spisok{
+.list{
     list-style: none;
     text-align: left;
 }
 .category{
     padding-inline-start: 0;
 }
-.spisokposition{
-    padding: 200px 400px;
+.listPosition{
+    padding: 200px 200px 200px 100px;
     font-size: 20px;
 }
 .item{
@@ -50,28 +50,27 @@
     opacity: 0;
     transition: .8s;
 }
-.hov:hover .span{
+.hoverImg:hover .span{
     opacity: 1;
     top: -150px;
 }
 .span:hover{
     width: 200px;
 }
-.wrap__img__modal{
+.wrapImgModal{
     min-width: 800px; 
     max-height: 600px;
     padding: 0 20px;
     background: rgb(0, 0, 0);
     text-align: center;
 }
-.right__panel__modal{
+.rightPanelModal{
     width: 200px;
-    /* margin-left: 5px; */
     background: rgb(234, 234, 234);  
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
-.img__modal{
+.imgModal{
     height: 100%;
     min-height: 600px;
     max-width: 1000px;
@@ -79,53 +78,53 @@
 
 
 @media screen and (min-width: 1120px) and (max-width: 1500px){
-    .spisokposition{
+    .listPosition{
         padding: 150px 300px;
     }
-    .wrap__img__modal{
+    .wrapImgModal{
         min-width: 690px; 
         padding: 0 15px;
     }
-    .right__panel__modal{
+    .rightPanelModal{
         width: 170px;
     }
-    .img__modal{
+    .imgModal{
         max-width: 750px;
     }
 }
 @media screen and (min-width: 980px) and (max-width: 1120px){
-    .spisokposition{
+    .listPosition{
         padding: 150px 200px;
     }
-    .wrap__img__modal{
+    .wrapImgModal{
         min-width: 600px; 
         max-height: 550px;
         padding: 0 15px;
     }
-    .right__panel__modal{
+    .rightPanelModal{
         width: 120px;
     }
-    .img__modal{
+    .imgModal{
         min-height: 450px;
         max-width: 750px;
     }
 }
 @media screen and (max-width: 980px){
-    .spisokposition{
+    .listPosition {
         padding: 50px 70px;
         font-size: 18px;
     }
-    .wrap__img__modal{
+    .wrapImgModal{
         min-width: 600px; 
         max-height: 550px;
         padding: 0;
         text-align: center;
         background: white;
     }
-    .right__panel__modal{
+    .rightPanelModal{
         display: none;
     }
-    .img__modal{
+    .imgModal{
         margin-right: 6px;
         min-height: 400px;
         max-width: 750px;
@@ -136,7 +135,7 @@
         position: absolute;
         left: -250px;
     }
-    .hov:hover .span{
+    .hoverImg:hover .span{
         top: -50px;
     }
 }
