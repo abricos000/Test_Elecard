@@ -3,11 +3,11 @@ import { MyButton } from '../MyButtons/MyButton';
 import { MyModal } from '../MyModal/MyModal';
 import s from './pageTreeList.module.css';
 
-export function PageTreeList({ posts }) {
-  const arrayMap = posts.map((el) => el.category);
+export function PageTreeList({ onPosts }) {
+  const arrayMap = onPosts.map((el) => el.category);
   const arrayCategorys = [...new Set(arrayMap)];
 
-  const arrayСonversion = (arr, arrCateg, categ = '13') => {
+  const handleArrayСonversion = (arr, arrCateg, categ = '13') => {
     const arrСonvers = [];
 
     for (let i = 0; i < arrCateg.length; i++) {
@@ -17,7 +17,7 @@ export function PageTreeList({ posts }) {
         arrСonvers.push(
           {
             categori: arrCateg[i],
-            nested_values: arrayСonversion(arr, arr, arrCateg[i]),
+            nested_values: handleArrayСonversion(arr, arr, arrCateg[i]),
           },
         );
       } else if (categ === arr[i].category) {
@@ -29,12 +29,12 @@ export function PageTreeList({ posts }) {
     return arrСonvers;
   };
 
-  const array = arrayСonversion(posts, arrayCategorys);
+  const array = handleArrayСonversion(onPosts, arrayCategorys);
 
   const [arrayCards, setArrayCards] = useState(array);
   const [status, setStatus] = useState(false);
 
-  const addDrow = (e) => {
+  const handleAddTree = (e) => {
     let newArr = [];
     const sortTreeArray = arrayCards.map((el) => {
       if (el.categori === e) {
@@ -57,14 +57,14 @@ export function PageTreeList({ posts }) {
     setArrayCards(sortTreeArray);
   };
 
-  const changeStatus = () => {
+  const handleChangeStatus = () => {
     setStatus(!status);
   };
 
   const [modal, setModal] = useState('');
   const [modalStatus, setModalStatus] = useState(false);
 
-  const imageModal = (i) => {
+  const handleImageModal = (i) => {
     setModal(i);
     setModalStatus(true);
   };
@@ -73,7 +73,7 @@ export function PageTreeList({ posts }) {
     setModalStatus(false);
   };
 
-  const drowRender = (data) => {
+  const handleTreeRender = (data) => {
     const children = [];
 
     for (let i = 0; i < data.length; i++) {
@@ -83,14 +83,14 @@ export function PageTreeList({ posts }) {
             role="presentation"
             key={i}
             className={s.item}
-            onClick={(e) => addDrow(e.target.innerHTML)}
+            onClick={(e) => handleAddTree(e.target.innerHTML)}
           >
             <ul className={`${s.list} ${s.category}`}>
               <li className={s.hoverImg}>{data[i].categori}</li>
             </ul>
             <ul className={s.list}>
               <li data={data[i]}>
-                { drowRender(data[i].nested_values)}
+                { handleTreeRender(data[i].nested_values)}
               </li>
             </ul>
           </li>,
@@ -103,7 +103,7 @@ export function PageTreeList({ posts }) {
               <img
                 role="presentation"
                 className={s.img}
-                onClick={(e) => imageModal(data[i].name, e)}
+                onClick={(e) => handleImageModal(data[i].name, e)}
                 value={data[i].name}
                 src={data[i].name}
                 alt="изображение из категории"
@@ -125,10 +125,10 @@ export function PageTreeList({ posts }) {
 
   return (
     <div className={s.listPosition}>
-      <MyButton click={changeStatus}>древовидный список</MyButton>
-      {drowRender(arrayCards)}
+      <MyButton click={handleChangeStatus}>древовидный список</MyButton>
+      {handleTreeRender(arrayCards)}
       { modalStatus ? (
-        <MyModal remove={removeModal}>
+        <MyModal onRemove={removeModal}>
           <span className={s.wrapImgModal}>
             <img className={s.imgModal} src={modal} alt="изображение не прогрузилось" />
           </span>

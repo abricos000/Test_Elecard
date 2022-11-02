@@ -4,7 +4,7 @@ import s from './card.module.css';
 
 export function Card({ onPost, onRemove }) {
   const data = new Date(onPost.timestamp).toLocaleDateString('en-US');
-  const KB = Math.ceil(onPost.filesize / MathDataMethod.bInKb);
+  const KiloB = Math.ceil(onPost.filesize / MathDataMethod.bInKb);
   const B = onPost.filesize % MathDataMethod.bInKb;
   const imageUrl = `http://contest.elecard.ru/frontend_data/${onPost.image}`;
 
@@ -20,7 +20,7 @@ export function Card({ onPost, onRemove }) {
         {' '}
         <b>размер файла:</b>
         {' '}
-        {KB}
+        {KiloB}
         Кб
         {' '}
         {B}

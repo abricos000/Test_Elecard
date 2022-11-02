@@ -1,34 +1,31 @@
 import React, { useState } from 'react';
 import s from './cardsPage.module.css';
-import { Pogination} from '../Pagination/Pagination';
+import { Pogination } from '../Pagination/Pagination';
 import { Cards } from '../Cards/Cards';
 import { SortCardsPage } from './SortCardsPage/SortCardsPage';
 import { clearRemovedCards, getRemovedCardList, setRemovedCard } from '../utils/removed-cars';
 import { numberOfPostsPerPage } from '../../constants/number-of-posts-per-page';
 
-// const deletePosts = [];
-
 export function CardsPage({
-  // loading
   onPosts, onSetPosts, onMainPost, onloading,
 }) {
-  const [currentPage, setCurrentPage] = useState(1);// на какой странице сейчас
+  const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(numberOfPostsPerPage.amount);
   const [selectedSort, setSelectedSort] = useState('');
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPost = onPosts.slice(firstPostIndex, lastPostIndex);
 
-  const paginate = (pageNumber) => {
+  const handlePaginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  const nextPage = () => {
+  const handleNextPage = () => {
     if (currentPage < Math.ceil(onPosts.length / postsPerPage)) {
       setCurrentPage((pref) => pref + 1);
     }
   };
-  const prefPage = () => {
+  const handlePrefPage = () => {
     if (currentPage > 1) {
       setCurrentPage((pref) => pref - 1);
     }
@@ -39,7 +36,7 @@ export function CardsPage({
     setRemovedCard(post);
   };
 
-  const sortPost = (sort) => {
+  const handleSortPost = (sort) => {
     setSelectedSort(sort);
     onSetPosts((prevPosts) => {
       const newPosts = [...prevPosts];
@@ -50,11 +47,11 @@ export function CardsPage({
     });
   };
 
-  const addAllCards = () => {
+  const handleAddAllCards = () => {
     onSetPosts(onMainPost);
   };
 
-  const showDeletedCards = () => {
+  const handleShowDeletedCards = () => {
     const deletedCards = getRemovedCardList();
     if (deletedCards.length) {
       onSetPosts(deletedCards);
@@ -73,21 +70,21 @@ export function CardsPage({
   return (
     <div>
       <SortCardsPage
-        onAddAllCards={addAllCards}
-        onShowDeletedCards={showDeletedCards}
+        onAddAllCards={handleAddAllCards}
+        onShowDeletedCards={handleShowDeletedCards}
         onRemoveShowDeletedCards={removeShowDeletedCards}
-        onSortPost={sortPost}
+        onSortPost={handleSortPost}
       />
       {currentPost.length
         ? <Cards onCurrentPost={currentPost} onRemove={removePost} />
         : <h2 className={s.noPost}>Картинок нет</h2>}
       <Pogination
-        onNextPage={nextPage}
-        onPrefPage={prefPage}
+        onNextPage={handleNextPage}
+        onPrefPage={handlePrefPage}
         onCurrentPost={currentPost}
         onPostsPerPage={postsPerPage}
         onTotalPosts={onPosts.length}
-        onPaginate={paginate}
+        onPaginate={handlePaginate}
       />
     </div>
   );

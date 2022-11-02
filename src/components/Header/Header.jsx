@@ -17,7 +17,6 @@ export function Header({ onChangeRenderMethod }) {
           карточки
         </label>
       </p>
-      {/* TODO Сделать такое же с этим инпутом */}
       <p className={s.p}>
         <label>
           <input

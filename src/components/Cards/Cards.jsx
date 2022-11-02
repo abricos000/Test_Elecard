@@ -12,7 +12,6 @@ export function Cards({ onCurrentPost, onRemove }) {
   return (
     <TransitionGroup
       className={s.cards}
-
     >
       {onCurrentPost.map((el) => (
         <CSSTransition
