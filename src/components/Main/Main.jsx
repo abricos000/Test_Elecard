@@ -36,7 +36,7 @@ export function Main({ onRenderMethod }) {
           onMainPost={mainPost}
         />
       ) : (
-        <PageTreeList posts={posts} />
+        <PageTreeList onPosts={posts} />
       )}
     </main>
   );
