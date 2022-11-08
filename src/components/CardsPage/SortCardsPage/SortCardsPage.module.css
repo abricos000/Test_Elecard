@@ -1,27 +1,70 @@
 .conteiner{
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
+    height: 350px;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-bottom: 100px;
-    padding-left: 20px;
+    position: sticky;
+    top: 100px;
+    background: #fff;
+    border-radius: 10px;
+    text-align: center;
 }
 .buttons{
-    width: 150px;
-    display: flex;
-    flex-wrap: wrap;
+    width: 200px;
+    text-align: center;
+    margin: 0 auto;
+}
+.quantity{
+    font-size: 12px;
+    color: rgb(171, 168, 168);
 }
 
-@media screen and (min-width: 550px) and (max-width: 900px){
+@media screen and (min-width: 670px) and (max-width: 900px){
     .conteiner{
-        margin-bottom: 30px;
+        height: 285px;
+    }
+    .buttons{
+        width: 150px;
+    }
+    .quantity{
+        font-size: 10px;
     }
 }
-@media screen and (max-width: 550px){
+@media screen and (min-width: 550px) and (max-width: 670px){
     .conteiner{
-        margin-bottom: 20px;
+        height: 250px;
+        border-radius: 8px;
+    }
+    .buttons{
+        width: 130px;
+    }
+    .quantity{
+        font-size: 8px;
     }
 }
+@media screen and (min-width: 380px) and (max-width: 550px){
+    .conteiner{
+        height: 250px;
+        border-radius: 5px;
+    }
+    .buttons{
+        width: 100px;
+    }
+    .quantity{
+        font-size: 6px;
+    }
+}
+@media screen and (max-width: 380px){
+    .conteiner{
+        height: 270px;
+        border-radius: 3px;
+        top: 50px;
+    }
+    .buttons{
+        width: 80px;
+    }
+    .quantity{
+        font-size: 6px;
+    }
+}
+
 

@@ -3,5 +3,37 @@
     height: 40px;
     margin: 10px;
     font-size: 14px;
+    cursor: pointer;
+    outline: none;
 }
 
+@media screen and (min-width: 770px) and (max-width: 900px){
+  .btn{
+      margin: 5px;
+      font-size: 12px;
+  }
+}
+@media screen and (min-width: 670px) and (max-width: 770px){
+  .btn{
+      width: 70px;
+      height: 40px;
+      margin: 5px;
+      font-size: 10px;
+  }
+}
+@media screen and (min-width: 500px) and (max-width: 670px){
+  .btn{
+      width: 60px;
+      height: 35px;
+      margin: 3px;
+      font-size: 8px;
+  }
+}
+@media screen and (max-width: 500px){
+  .btn{
+      width: 60px;
+      height: 35px;
+      margin: 3px;
+      font-size: 8px;
+  }
+}

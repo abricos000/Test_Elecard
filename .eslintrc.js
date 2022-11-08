@@ -22,6 +22,13 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-plusplus': 'off',
     'no-nested-ternary': 'off',
-    // 'max-len': [2, {}]
+    'react/function-component-definition': 'off',
+    'no-sequences': 'off',
+    'jsx-a11y/label-has-associated-control': ['error', {
+      required: {
+        some: ['nesting', 'id'],
+      },
+    }],
+
   },
 };

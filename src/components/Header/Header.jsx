@@ -3,31 +3,31 @@ import React from 'react';
 import { RenderMethod } from '../../constants/render-method';
 import s from './header.module.css';
 
-export function Header({ onChangeRenderMethod }) {
-  return (
-    <header className={s.header}>
-      <p className={s.p}>
-        <label>
-          <input
-            type="radio"
-            name="prim"
-            onClick={onChangeRenderMethod}
-            value={RenderMethod.cards}
-          />
-          карточки
-        </label>
-      </p>
-      <p className={s.p}>
-        <label>
-          <input
-            type="radio"
-            name="prim"
-            onClick={onChangeRenderMethod}
-            value={RenderMethod.tree}
-          />
-          древовидный список
-        </label>
-      </p>
-    </header>
-  );
-}
+export const Header = ({ onChangeRenderMethod, renderMethod }) => (
+  <header className={s.header}>
+    <p className={s.p}>
+      <label>
+        <input
+          checked={renderMethod === RenderMethod.cards}
+          type="radio"
+          name="prim"
+          onChange={onChangeRenderMethod}
+          value={RenderMethod.cards}
+        />
+        карточки
+      </label>
+    </p>
+    <p className={s.p}>
+      <label>
+        <input
+          checked={renderMethod === RenderMethod.tree}
+          type="radio"
+          name="prim"
+          onChange={onChangeRenderMethod}
+          value={RenderMethod.tree}
+        />
+        древовидный список
+      </label>
+    </p>
+  </header>
+);

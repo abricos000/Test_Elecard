@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link, animateScroll as scroll } from 'react-scroll';
+import { useWindowScroll } from 'react-use';
 import s from './main.module.css';
 import { PageTreeList } from '../PageTreeList/PageTreeList';
 import { CardsPage } from '../CardsPage/CardsPage';
 import { RenderMethod } from '../../constants/render-method';
 
-export function Main({ onRenderMethod }) {
+export const Main = ({ renderMethod }) => {
   const requestURL = 'http://contest.elecard.ru/frontend_data/catalog.json';
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);// идентификатор закрузки
+  const [loading, setLoading] = useState(false);
   const [mainPost, setMainPost] = useState([]);
 
   useEffect(() => {
@@ -25,19 +27,36 @@ export function Main({ onRenderMethod }) {
     getPosts();
   }, []);
 
+  const handleScrollToTop = () => scroll.scrollToTop();
+
+  const { y } = useWindowScroll();
+
   return (
-    <main className={s.mainContent}>
-      {onRenderMethod === RenderMethod.cards ? (
-        <CardsPage
-          onPosts={posts}
-          onSetPosts={setPosts}
-          onSetLoading={setLoading}
-          onLoading={loading}
-          onMainPost={mainPost}
-        />
-      ) : (
-        <PageTreeList onPosts={posts} />
+    <main id="top" className={s.mainContent}>
+      {renderMethod === RenderMethod.cards
+        ? (
+          <CardsPage
+            posts={posts}
+            onSetPosts={setPosts}
+            onSetLoading={setLoading}
+            loading={loading}
+            mainPost={mainPost}
+            onScrollToTop={handleScrollToTop}
+          />
+        )
+        : <PageTreeList posts={mainPost} /> }
+      {(y < 2000) || (
+        <button
+          type="button"
+          className={s.scrollTop}
+          onClick={handleScrollToTop}
+        >
+          <Link to="top" smooth>
+            &#9650;
+            вверх
+          </Link>
+        </button>
       )}
     </main>
   );
-}
+};

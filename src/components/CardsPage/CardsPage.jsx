@@ -1,43 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './cardsPage.module.css';
-import { Pogination } from '../Pagination/Pagination';
+import { Pagination } from '../Pagination/Pagination';
 import { Cards } from '../Cards/Cards';
 import { SortCardsPage } from './SortCardsPage/SortCardsPage';
 import { clearRemovedCards, getRemovedCardList, setRemovedCard } from '../utils/removed-cars';
 import { numberOfPostsPerPage } from '../../constants/number-of-posts-per-page';
 
-export function CardsPage({
-  onPosts, onSetPosts, onMainPost, onloading,
-}) {
+export const CardsPage = ({
+  posts, onSetPosts, mainPost, loading, onScrollToTop,
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(numberOfPostsPerPage.amount);
-  const [selectedSort, setSelectedSort] = useState('');
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = onPosts.slice(firstPostIndex, lastPostIndex);
+  const postList = posts.slice(firstPostIndex, lastPostIndex);
+  const listPageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
+    if (i === 1) {
+      listPageNumbers.push({ number: i, status: true });
+    } else listPageNumbers.push({ number: i, status: false });
+  }
+
+  const [pageNumbers, setPageNumbers] = useState([]);
+
+  useEffect(() => {
+    setPageNumbers(listPageNumbers);
+  }, [listPageNumbers.length]);
 
   const handlePaginate = (pageNumber) => {
     setCurrentPage(pageNumber);
-  };
 
-  const handleNextPage = () => {
-    if (currentPage < Math.ceil(onPosts.length / postsPerPage)) {
-      setCurrentPage((pref) => pref + 1);
-    }
-  };
-  const handlePrefPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((pref) => pref - 1);
-    }
+    onScrollToTop();
+
+    setPageNumbers(pageNumbers.map((e) => {
+      if (pageNumber === e.number) {
+        return ({ number: e.number, status: true });
+      }
+      return ({ number: e.number, status: false });
+    }));
   };
 
   const removePost = (post) => {
-    onSetPosts(onPosts.filter((p) => p.id !== post.id));
+    onSetPosts(posts.filter((p) => p.id !== post.id));
     setRemovedCard(post);
   };
 
   const handleSortPost = (sort) => {
-    setSelectedSort(sort);
     onSetPosts((prevPosts) => {
       const newPosts = [...prevPosts];
       const sortFunction = sort === 'category'
@@ -48,7 +57,7 @@ export function CardsPage({
   };
 
   const handleAddAllCards = () => {
-    onSetPosts(onMainPost);
+    onSetPosts(mainPost);
   };
 
   const handleShowDeletedCards = () => {
@@ -60,32 +69,38 @@ export function CardsPage({
 
   const removeShowDeletedCards = () => {
     clearRemovedCards();
-    onSetPosts(onMainPost);
+    onSetPosts(mainPost);
   };
 
-  if (onloading) {
+  if (loading) {
     return <h2 className={s.noPost}>loading... </h2>;
   }
 
   return (
     <div>
-      <SortCardsPage
-        onAddAllCards={handleAddAllCards}
-        onShowDeletedCards={handleShowDeletedCards}
-        onRemoveShowDeletedCards={removeShowDeletedCards}
-        onSortPost={handleSortPost}
-      />
-      {currentPost.length
-        ? <Cards onCurrentPost={currentPost} onRemove={removePost} />
-        : <h2 className={s.noPost}>Картинок нет</h2>}
-      <Pogination
-        onNextPage={handleNextPage}
-        onPrefPage={handlePrefPage}
-        onCurrentPost={currentPost}
-        onPostsPerPage={postsPerPage}
-        onTotalPosts={onPosts.length}
+      <div className={s.cardPage}>
+        {postList.length
+          ? (
+            <Cards
+              key={postList[0] ? postList[0].id : 0}
+              postList={postList}
+              onClose={removePost}
+            />
+          )
+          : <h2 className={s.noPost}>Картинок нет</h2>}
+
+        <SortCardsPage
+          quantityPosts={posts.length}
+          onAddAllCards={handleAddAllCards}
+          onShowDeletedCards={handleShowDeletedCards}
+          removeShowDeletedCards={removeShowDeletedCards}
+          onSortPost={handleSortPost}
+        />
+      </div>
+      <Pagination
+        pageNumbers={pageNumbers}
         onPaginate={handlePaginate}
       />
     </div>
   );
-}
+};

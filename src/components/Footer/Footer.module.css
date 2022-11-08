@@ -10,3 +10,28 @@
     z-index: 1;
     bottom: 0;
 }
+
+@media screen and (min-width: 920px) and (max-width: 1120px){
+    .footerContent{
+        height: 19px;
+        font-size: 13px;
+    }
+}
+@media screen and (min-width: 700px) and (max-width: 920px){
+    .footerContent{
+        height: 18px;
+        font-size: 12px;
+    }
+}
+@media screen and (min-width: 550px) and (max-width: 700px){
+    .footerContent{
+        height: 16px;
+        font-size: 10px;
+    }
+}
+@media screen and (max-width: 550px){
+    .footerContent{
+        height: 15px;
+        font-size: 9px;
+    }
+}

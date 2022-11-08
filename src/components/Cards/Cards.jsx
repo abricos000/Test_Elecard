@@ -4,8 +4,8 @@ import { Card } from './Card/Card';
 import s from './cards.module.css';
 import './cards.css';
 
-export function Cards({ onCurrentPost, onRemove }) {
-  if (!onCurrentPost.length) {
+export const Cards = ({ postList, onClose }) => {
+  if (!postList.length) {
     return <h2>Картинок нет</h2>;
   }
 
@@ -13,16 +13,16 @@ export function Cards({ onCurrentPost, onRemove }) {
     <TransitionGroup
       className={s.cards}
     >
-      {onCurrentPost.map((el) => (
+      {postList.map((el) => (
         <CSSTransition
           key={el.id}
           timeout={300}
           classNames="card"
         >
-          <Card onRemove={onRemove} onPost={el} />
+          <Card onRemove={onClose} onPost={el} />
         </CSSTransition>
       ))}
     </TransitionGroup>
 
   );
-}
+};

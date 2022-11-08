@@ -21,9 +21,87 @@
 }
 .item:hover{
     background: rgb(255, 255, 255);
-    font-size: 19px;
 }
 .btns{
     margin-top: 30px;
     text-align: center;
 }
+.active{
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 5px;
+    padding: 5px;
+    max-height: 30px;
+    height: 100%;
+    max-width: 30px;
+    width: 100%;
+}
+@media screen and (min-width: 920px) and (max-width: 1300px){
+    .item{
+        max-height: 25px;
+        max-width: 25px;
+        margin: 5px;
+        font-size: 16px;
+        padding: 5px;
+    }
+    .active{
+        margin: 5px;
+        padding: 5px;
+        max-height: 25px;
+        max-width: 25px;
+        font-size: 16px;
+    }
+  }
+  @media screen and (min-width: 700px) and (max-width: 920px){
+    .item{
+        max-height: 20px;
+        max-width: 20px;
+        margin: 2px;
+        font-size: 14px;
+    }
+    .active{
+        margin: 2px;
+        max-height: 20px;
+        max-width: 20px;
+        font-size: 14px;
+    }
+    .list{
+        margin-top: 70px;
+    }
+  }
+  @media screen and (min-width: 550px) and (max-width: 700px){
+    .item{
+        max-height: 15px;
+        max-width: 15px;
+        margin: 2px;
+        font-size: 12px;
+    }
+    .active{
+        margin: 2px;
+        max-height: 15px;
+        max-width: 15px;
+        font-size: 12px;
+    }
+    .list{
+        margin-top: 50px;
+    }
+  }
+  @media screen and (max-width: 550px){
+    .item{
+        max-height: 10px;
+        max-width: 10px;
+        margin: 2px;
+        font-size: 8px;
+    }
+    .active{
+        margin: 2px;
+        max-height: 10px;
+        max-width: 10px;
+        font-size: 8px;
+    }
+    .list{
+        margin-top: 30px;
+    }
+  }

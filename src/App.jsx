@@ -3,7 +3,7 @@ import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
 
-function App() {
+const App = () => {
   const [renderMethod, setRenderMethod] = useState('cards');
 
   const handleChangeRenderMethod = (e) => {
@@ -12,11 +12,11 @@ function App() {
 
   return (
     <div>
-      <Header onChangeRenderMethod={handleChangeRenderMethod} />
-      <Main onRenderMethod={renderMethod} />
+      <Header onChangeRenderMethod={handleChangeRenderMethod} renderMethod={renderMethod} />
+      <Main renderMethod={renderMethod} />
       <Footer>Footer</Footer>
     </div>
   );
-}
+};
 
 export default App;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLockBodyScroll, useToggle } from 'react-use';
 import { MyButton } from '../MyButtons/MyButton';
 import { MyModal } from '../MyModal/MyModal';
 import s from './pageTreeList.module.css';
 
-export function PageTreeList({ onPosts }) {
-  const arrayMap = onPosts.map((el) => el.category);
+export const PageTreeList = ({ posts }) => {
+  const arrayMap = posts.map((el) => el.category);
   const arrayCategorys = [...new Set(arrayMap)];
 
   const handleArrayСonversion = (arr, arrCateg, categ = '13') => {
@@ -22,16 +23,26 @@ export function PageTreeList({ onPosts }) {
         );
       } else if (categ === arr[i].category) {
         arrСonvers.push(
-          { bool: false, categorii: arr[i].category, name: `http://contest.elecard.ru/frontend_data/${arr[i].image}` },
+
+          {
+            id: i,
+            bool: false,
+            categorii: arr[i].category,
+            name: `http://contest.elecard.ru/frontend_data/${arr[i].image}`,
+          },
         );
       }
     }
     return arrСonvers;
   };
 
-  const array = handleArrayСonversion(onPosts, arrayCategorys);
-
+  const array = handleArrayСonversion(posts, arrayCategorys);
   const [arrayCards, setArrayCards] = useState(array);
+
+  useEffect(() => {
+    setArrayCards(array);
+  }, [array.length]);
+
   const [status, setStatus] = useState(false);
 
   const handleAddTree = (e) => {
@@ -40,6 +51,7 @@ export function PageTreeList({ onPosts }) {
       if (el.categori === e) {
         newArr = el.nested_values.map((elem) => (
           {
+            id: elem.id,
             bool: !elem.bool,
             categorii: elem.categorii,
             name: elem.name,
@@ -61,16 +73,31 @@ export function PageTreeList({ onPosts }) {
     setStatus(!status);
   };
 
-  const [modal, setModal] = useState('');
+  const [modal, setModal] = useState({ img: '', id: 0 });
   const [modalStatus, setModalStatus] = useState(false);
+  const [locked, toggleLocked] = useToggle(false);
+  useLockBodyScroll(locked);
 
-  const handleImageModal = (i) => {
-    setModal(i);
+  const handleImageModal = (i, id) => {
+    toggleLocked();
+    setModal({ img: i, id });
     setModalStatus(true);
+  };
+
+  const handleSwitchingModalImage = (id, value) => {
+    if (id > 0 && value === 'pref') {
+      const pref = posts.filter((p) => p.id === id - 1);
+      setModal({ img: `http://contest.elecard.ru/frontend_data/${pref[0].image}`, id: id - 1 });
+    }
+    if (id < posts.length - 1 && value === 'next') {
+      const next = posts.filter((p) => p.id === id + 1);
+      setModal({ img: `http://contest.elecard.ru/frontend_data/${next[0].image}`, id: id + 1 });
+    }
   };
 
   const removeModal = () => {
     setModalStatus(false);
+    toggleLocked();
   };
 
   const handleTreeRender = (data) => {
@@ -103,7 +130,7 @@ export function PageTreeList({ onPosts }) {
               <img
                 role="presentation"
                 className={s.img}
-                onClick={(e) => handleImageModal(data[i].name, e)}
+                onClick={() => handleImageModal(data[i].name, data[i].id)}
                 value={data[i].name}
                 src={data[i].name}
                 alt="изображение из категории"
@@ -120,21 +147,41 @@ export function PageTreeList({ onPosts }) {
         </ul>
       );
     }
-    return (<h5>раскройте дерево</h5>);
+    return (<h5 style={{ color: '#6F1' }}>раскройте дерево</h5>);
   };
 
   return (
     <div className={s.listPosition}>
       <MyButton click={handleChangeStatus}>древовидный список</MyButton>
       {handleTreeRender(arrayCards)}
-      { modalStatus ? (
-        <MyModal onRemove={removeModal}>
+      { modalStatus && (
+        <MyModal onClose={removeModal}>
           <span className={s.wrapImgModal}>
-            <img className={s.imgModal} src={modal} alt="изображение не прогрузилось" />
+            <div className={s.btns}>
+              <button
+                value="pref"
+                className={s.btnPref}
+                onClick={(e) => handleSwitchingModalImage(modal.id, e.target.value)}
+                type="button"
+              >
+                &#10094;
+              </button>
+
+              <button
+                value="next"
+                className={s.btnNext}
+                onClick={(e) => handleSwitchingModalImage(modal.id, e.target.value)}
+                type="button"
+              >
+                &#10095;
+              </button>
+            </div>
+
+            <img className={s.imgModal} src={modal.img} alt="изображение не прогрузилось" />
           </span>
           <div className={s.rightPanelModal} />
         </MyModal>
-      ) : <div />}
+      )}
     </div>
   );
-}
+};
