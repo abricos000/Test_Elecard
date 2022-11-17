@@ -9,7 +9,7 @@ export const Pagination = ({ onPaginate, pageNumbers }) => (
           role="presentation"
           onClick={() => onPaginate(element.number)}
           key={element.number}
-          className={element.status ? s.active : s.item}
+          className={`${s.item} ${element.status ? s.active : ' '}`}
         >
           {element.number}
         </span>

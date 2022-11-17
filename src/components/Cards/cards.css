@@ -3,14 +3,14 @@
 }
 .card-enter-active {
   opacity: 1;
-  transition: opacity 300ms ease-in;
+  transition: opacity .3s ease-in;
 }
 .card-exit {
   opacity: 1;
 }
 .card-exit-active {
   opacity: 0;
-  transition: opacity 300ms ease-in;
+  transition: opacity .3s ease-in;
 }
 
  

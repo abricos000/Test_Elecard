@@ -1,1 +1,1 @@
-export const numberOfPostsPerPage = { amount: 34 };
+export const numberPostsPerPage = 34;

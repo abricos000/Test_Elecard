@@ -6,20 +6,18 @@ import s from './main.module.css';
 import { PageTreeList } from '../PageTreeList/PageTreeList';
 import { CardsPage } from '../CardsPage/CardsPage';
 import { RenderMethod } from '../../constants/render-method';
+import { host } from '../../constants/host';
 
 export const Main = ({ renderMethod }) => {
-  const requestURL = 'http://contest.elecard.ru/frontend_data/catalog.json';
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [mainPost, setMainPost] = useState([]);
 
   useEffect(() => {
     const getPosts = async () => {
       setLoading(true);
-      axios.get(requestURL).then(({ data }) => {
+      axios.get(host).then(({ data }) => {
         const newData = data.map((imageData, index) => ({ ...imageData, id: index }));
         setPosts(newData);
-        setMainPost(newData);
       }).finally(() => {
         setLoading(false);
       });
@@ -31,21 +29,23 @@ export const Main = ({ renderMethod }) => {
 
   const { y } = useWindowScroll();
 
+  if (loading) {
+    return <h1 className={s.noPost}>loading...</h1>;
+  }
   return (
     <main id="top" className={s.mainContent}>
-      {renderMethod === RenderMethod.cards
-        ? (
-          <CardsPage
-            posts={posts}
-            onSetPosts={setPosts}
-            onSetLoading={setLoading}
-            loading={loading}
-            mainPost={mainPost}
-            onScrollToTop={handleScrollToTop}
-          />
-        )
-        : <PageTreeList posts={mainPost} /> }
-      {(y < 2000) || (
+      {posts.length && (
+        renderMethod === RenderMethod.cards
+          ? (
+            <CardsPage
+              posts={posts}
+              onScrollToTop={handleScrollToTop}
+            />
+          )
+          : <PageTreeList posts={posts} />
+      )}
+
+      {(y > 2000) && (
         <button
           type="button"
           className={s.scrollTop}

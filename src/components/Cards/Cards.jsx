@@ -4,25 +4,19 @@ import { Card } from './Card/Card';
 import s from './cards.module.css';
 import './cards.css';
 
-export const Cards = ({ postList, onClose }) => {
-  if (!postList.length) {
-    return <h2>Картинок нет</h2>;
-  }
+export const Cards = ({ postList, onClose }) => (
+  <TransitionGroup
+    className={s.cards}
+  >
+    {postList.map((el) => (
+      <CSSTransition
+        key={el.id}
+        timeout={300}
+        classNames="card"
+      >
+        <Card onRemove={onClose} post={el} />
+      </CSSTransition>
+    ))}
+  </TransitionGroup>
 
-  return (
-    <TransitionGroup
-      className={s.cards}
-    >
-      {postList.map((el) => (
-        <CSSTransition
-          key={el.id}
-          timeout={300}
-          classNames="card"
-        >
-          <Card onRemove={onClose} onPost={el} />
-        </CSSTransition>
-      ))}
-    </TransitionGroup>
-
-  );
-};
+);

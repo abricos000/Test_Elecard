@@ -3,20 +3,20 @@ import s from './cardsPage.module.css';
 import { Pagination } from '../Pagination/Pagination';
 import { Cards } from '../Cards/Cards';
 import { SortCardsPage } from './SortCardsPage/SortCardsPage';
-import { clearRemovedCards, getRemovedCardList, setRemovedCard } from '../utils/removed-cars';
-import { numberOfPostsPerPage } from '../../constants/number-of-posts-per-page';
+import { clearRemovedCards, getRemovedCardList, setRemovedCard } from '../utils/removed-cards';
+import { numberPostsPerPage } from '../../constants/number-of-posts-per-page';
+import { getCardList, setCardList, clearCards } from '../utils/cards';
 
-export const CardsPage = ({
-  posts, onSetPosts, mainPost, loading, onScrollToTop,
-}) => {
+export const CardsPage = ({ posts, onScrollToTop }) => {
+  const [cards, setCards] = useState(getCardList().length ? getCardList() : posts);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(numberOfPostsPerPage.amount);
+  const [postsPerPage] = useState(numberPostsPerPage);
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  const postList = posts.slice(firstPostIndex, lastPostIndex);
+  const postList = cards.slice(firstPostIndex, lastPostIndex);
   const listPageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(posts.length / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(cards.length / postsPerPage); i++) {
     if (i === 1) {
       listPageNumbers.push({ number: i, status: true });
     } else listPageNumbers.push({ number: i, status: false });
@@ -42,39 +42,31 @@ export const CardsPage = ({
   };
 
   const removePost = (post) => {
-    onSetPosts(posts.filter((p) => p.id !== post.id));
+    setCards((prefCards) => prefCards.filter((p) => p.id !== post.id));
+    setCardList(cards.filter((p) => p.id !== post.id));
+
     setRemovedCard(post);
   };
 
-  const handleSortPost = (sort) => {
-    onSetPosts((prevPosts) => {
-      const newPosts = [...prevPosts];
-      const sortFunction = sort === 'category'
-        ? (a, b) => a[sort].localeCompare(b[sort])
-        : (a, b) => (a[sort] > b[sort] ? -1 : b[sort] > a[sort] ? 1 : 0);
-      return newPosts.sort(sortFunction);
-    });
-  };
-
   const handleAddAllCards = () => {
-    onSetPosts(mainPost);
+    setCards(posts);
+    clearRemovedCards();
+    clearCards();
   };
 
   const handleShowDeletedCards = () => {
     const deletedCards = getRemovedCardList();
-    if (deletedCards.length) {
-      onSetPosts(deletedCards);
-    }
+    setCards(deletedCards);
   };
 
   const removeShowDeletedCards = () => {
     clearRemovedCards();
-    onSetPosts(mainPost);
+    setCards(getCardList().length ? getCardList() : posts);
   };
 
-  if (loading) {
-    return <h2 className={s.noPost}>loading... </h2>;
-  }
+  const handleBackToCards = () => {
+    setCards(getCardList().length ? getCardList() : posts);
+  };
 
   return (
     <div>
@@ -90,11 +82,12 @@ export const CardsPage = ({
           : <h2 className={s.noPost}>Картинок нет</h2>}
 
         <SortCardsPage
-          quantityPosts={posts.length}
+          onBackToCards={handleBackToCards}
+          quantityPosts={cards.length}
           onAddAllCards={handleAddAllCards}
           onShowDeletedCards={handleShowDeletedCards}
           removeShowDeletedCards={removeShowDeletedCards}
-          onSortPost={handleSortPost}
+          setCards={setCards}
         />
       </div>
       <Pagination

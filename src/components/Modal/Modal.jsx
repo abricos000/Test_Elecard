@@ -1,7 +1,7 @@
 import React from 'react';
-import s from './myModal.module.css';
+import s from './modal.module.css';
 
-export const MyModal = ({
+export const Modal = ({
   children, onClose,
 }) => (
   <div role="presentation" onClick={() => onClose()} className={[s.modal, s.active].join(' ')}>

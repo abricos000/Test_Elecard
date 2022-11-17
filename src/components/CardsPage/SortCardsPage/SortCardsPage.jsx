@@ -1,32 +1,67 @@
 import React, { useState } from 'react';
-import { MyButton } from '../../MyButtons/MyButton';
-import MyRadioButton from '../../MyRadioButton/MyRadioButton';
+import { sortData, valueSortCard } from '../../../constants/sort-card';
+import { Button } from '../../Buttons/Button';
+import RadioButton from '../../RadioButton/RadioButton';
 import s from './sortCardsPage.module.css';
 
 export const SortCardsPage = ({
-  onAddAllCards, onShowDeletedCards, removeShowDeletedCards, onSortPost, quantityPosts,
+  onAddAllCards, onShowDeletedCards, removeShowDeletedCards, quantityPosts, setCards, onBackToCards,
 }) => {
-  const [sortMethod, setSortMethod] = useState('category');
+  const [sortMethod, setSortMethod] = useState(valueSortCard.category);
+
+  const handleSortPost = (sort) => {
+    setSortMethod(sort);
+    setCards((prevPosts) => {
+      const newPosts = [...prevPosts];
+      const sortFunction = sort === valueSortCard.category
+        ? (a, b) => a[sort].localeCompare(b[sort])
+        : (a, b) => (a[sort] > b[sort] ? -1 : b[sort] > a[sort] ? 1 : 0);
+      return newPosts.sort(sortFunction);
+    });
+  };
+
   return (
-    <div className={s.conteiner}>
-      <MyRadioButton
-        onChange={onSortPost}
+    <div className={s.container}>
+      <RadioButton
+        onChange={handleSortPost}
         sortMethod={sortMethod}
-        setSortMethod={setSortMethod}
-        onSortData={[
-          { value: 'filesize', name: 'Размеру файла' },
-          { value: 'timestamp', name: 'Дате' },
-          { value: 'category', name: 'Категории' },
-        ]}
+        onSortData={sortData}
       />
       <div className={s.buttons}>
-        <MyButton click={onAddAllCards}>добавить все карточки</MyButton>
-        <MyButton click={onShowDeletedCards}>Корзина</MyButton>
-        <MyButton click={removeShowDeletedCards}>Очистить корзину</MyButton>
+        <Button
+          onClick={onBackToCards}
+        >
+          Вернуться к карточкам
+        </Button>
+
+        <Button
+          onClick={onAddAllCards}
+        >
+          добавить все карточки
+
+        </Button>
+
+        <Button
+          onClick={onShowDeletedCards}
+        >
+          Корзина
+
+        </Button>
+
+        <Button
+          onClick={removeShowDeletedCards}
+        >
+          Очистить корзину
+
+        </Button>
+
       </div>
       <span className={s.quantity}>
         кол-во изображений:
-        <span style={{ color: '#333' }}>{quantityPosts}</span>
+        <span className={s.coutPosts}>
+          {' '}
+          {quantityPosts}
+        </span>
       </span>
     </div>
   );

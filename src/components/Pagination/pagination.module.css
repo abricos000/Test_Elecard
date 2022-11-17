@@ -11,8 +11,8 @@
     height: 100%;
     max-width: 30px;
     width: 100%;
-    background-color: rgb(219, 216, 216);
-    color: rgb(0, 0, 0);
+    background-color: #dbd8d8;
+    color: #000000;
     border-radius: 50px;
     cursor: pointer;
     margin: 5px;
@@ -20,23 +20,14 @@
     padding: 5px;
 }
 .item:hover{
-    background: rgb(255, 255, 255);
+    background: #ffffff;
 }
 .btns{
     margin-top: 30px;
     text-align: center;
 }
 .active{
-    background: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 5px;
-    padding: 5px;
-    max-height: 30px;
-    height: 100%;
-    max-width: 30px;
-    width: 100%;
+    background: #ffffff;
 }
 @media screen and (min-width: 920px) and (max-width: 1300px){
     .item{

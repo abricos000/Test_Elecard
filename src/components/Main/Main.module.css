@@ -1,6 +1,8 @@
 .mainContent{
+  position: relative;
+
   font-size: 24px;
-  background: rgb(234, 234, 234);
+  background: #eaeaea;
   min-height: 90vh;
   height: 100%;
   max-width: 1200px;
@@ -15,19 +17,24 @@
   z-index: 1;
   outline: none;
   border: none;
-  background: rgb(255, 255, 255);
-  left: 3%;
+  background: #ffffff;
   top: 10%;
-  color: rgb(191, 191, 191);
+  color: #bfbfbf;
   padding: 10px;
   cursor: pointer;
   font-size: 14px;
   border-radius: 10px;
+  border: 1px solid #bfbfbf;
   transition: .4s;
 }
 .scrollTop:hover {
-  background: rgb(153, 149, 149);
-  background: rgb(80, 79, 79);
+  background: #999595;
+  background: #504f4f;
+}
+.noPost{
+  position: absolute;
+  top: 50%;
+  right: 50%;
 }
 @media screen and (min-width: 800px) and (max-width: 1030px){
   .mainContent{

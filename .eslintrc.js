@@ -24,6 +24,7 @@ module.exports = {
     'no-nested-ternary': 'off',
     'react/function-component-definition': 'off',
     'no-sequences': 'off',
+    'linebreak-style': 'off',
     'jsx-a11y/label-has-associated-control': ['error', {
       required: {
         some: ['nesting', 'id'],

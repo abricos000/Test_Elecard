@@ -1,7 +1,6 @@
-.conteiner{
-    height: 350px;
+.container{
+    height: 400px;
     margin: 0 auto;
-    box-sizing: border-box;
     position: sticky;
     top: 100px;
     background: #fff;
@@ -15,12 +14,15 @@
 }
 .quantity{
     font-size: 12px;
-    color: rgb(171, 168, 168);
+    color: #aba8a8;
+}
+.coutPosts{
+    color: #333;
 }
 
 @media screen and (min-width: 670px) and (max-width: 900px){
-    .conteiner{
-        height: 285px;
+    .container{
+        height: 350px;
     }
     .buttons{
         width: 150px;
@@ -30,8 +32,8 @@
     }
 }
 @media screen and (min-width: 550px) and (max-width: 670px){
-    .conteiner{
-        height: 250px;
+    .container{
+        height: 350px;
         border-radius: 8px;
     }
     .buttons{
@@ -42,8 +44,8 @@
     }
 }
 @media screen and (min-width: 380px) and (max-width: 550px){
-    .conteiner{
-        height: 250px;
+    .container{
+        height: 350px;
         border-radius: 5px;
     }
     .buttons{
@@ -54,8 +56,8 @@
     }
 }
 @media screen and (max-width: 380px){
-    .conteiner{
-        height: 270px;
+    .container{
+        height: 350px;
         border-radius: 3px;
         top: 50px;
     }
