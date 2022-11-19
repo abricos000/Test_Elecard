@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { useWindowScroll } from 'react-use';
-import s from './main.module.css';
+import s from './Main.module.css';
 import { PageTreeList } from '../PageTreeList/PageTreeList';
 import { CardsPage } from '../CardsPage/CardsPage';
 import { RenderMethod } from '../../constants/render-method';

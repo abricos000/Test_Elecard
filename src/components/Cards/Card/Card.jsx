@@ -1,7 +1,7 @@
 import React from 'react';
 import { MathDateMethod } from '../../../constants/math-method';
 import { dataHost } from '../../../constants/host';
-import s from './card.module.css';
+import s from './Сard.module.css';
 
 export const Card = ({ post, onRemove }) => (
   <div className={s.card}>

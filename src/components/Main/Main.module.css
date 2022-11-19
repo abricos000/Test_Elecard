@@ -1,8 +1,12 @@
+:root {
+  --white: #ffffff;
+  --color-gray: #bfbfbf;
+  --gray-4: #eaeaea;
+}
 .mainContent{
   position: relative;
-
   font-size: 24px;
-  background: #eaeaea;
+  background: var(--gray-4);
   min-height: 90vh;
   height: 100%;
   max-width: 1200px;
@@ -17,18 +21,17 @@
   z-index: 1;
   outline: none;
   border: none;
-  background: #ffffff;
+  background: var(--white);
   top: 10%;
-  color: #bfbfbf;
+  color: var(--color-gray);
   padding: 10px;
   cursor: pointer;
   font-size: 14px;
   border-radius: 10px;
-  border: 1px solid #bfbfbf;
+  border: 1px solid var(--color-gray);
   transition: .4s;
 }
 .scrollTop:hover {
-  background: #999595;
   background: #504f4f;
 }
 .noPost{

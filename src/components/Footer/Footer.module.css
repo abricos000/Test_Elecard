@@ -1,11 +1,15 @@
+:root {
+    --white: #fff;
+    --border-color-gray: #e0e0e0;
+}
 .footerContent{
     width: 100%;
     height: 20px;
     position: fixed;
     font-size: 14px;
     text-align: center;
-    background: #fff;
-    border-top: 1px solid #e0e0e0;
+    background: var(--white);
+    border-top: 1px solid var(--border-color-gray);
     z-index: 1;
     bottom: 0;
     box-sizing: border-box;

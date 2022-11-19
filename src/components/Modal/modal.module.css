@@ -1,3 +1,10 @@
+:root {
+    --white: #ffffff;
+    --color-black: #000000;
+    --black-3: #00000000;
+    --black-4: #00000080;
+    --color-gray-3: #a8a8a8;
+  }
 .modal{
     position: fixed;
     top: 0;
@@ -5,12 +12,12 @@
     bottom: 0;
     left: 0;
     display: none;
-    background: #00000080;
+    background: var(--black-4);
     z-index: 2;
 }
 .modalContent{
     padding: 5px 5px 5px 50px;
-    background: #ffffff;
+    background: var(--white);
     border-radius: 10px;
     display: flex;
     margin: 10px;
@@ -31,10 +38,10 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border: none;
-    background: #00000000;
+    background: var(--black-3);
     border-radius: 40px;
     cursor: pointer;
-    color: #a8a8a8;
+    color: var(--color-gray-3);
     height: 40px;
     width: 40px;
     font-weight: bold;
@@ -43,7 +50,7 @@
 
 }
 .btn:hover{
-    color: #000000;
+    color: var(--color-black);
 }
 
 @media screen and (min-width: 720px) and (max-width: 1050px){

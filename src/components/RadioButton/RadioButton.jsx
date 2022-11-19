@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './radioButton.module.css';
+import s from './RadioButton.module.css';
 
 const RadioButton = ({
   onSortData, onChange, sortMethod,

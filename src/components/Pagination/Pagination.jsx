@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './pagination.module.css';
+import s from './Pagination.module.css';
 
 export const Pagination = ({ onPaginate, pageNumbers }) => (
   <div>

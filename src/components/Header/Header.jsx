@@ -1,6 +1,6 @@
 import React from 'react';
+import s from './Header.module.css';
 import { RenderMethod } from '../../constants/render-method';
-import s from './header.module.css';
 
 export const Header = ({ onChangeRenderMethod, renderMethod }) => {
   const valuePage = 'valuePage';

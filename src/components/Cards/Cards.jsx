@@ -1,8 +1,8 @@
 import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Card } from './Card/Card';
-import s from './cards.module.css';
-import './cards.css';
+import s from './Сards.module.css';
+import './Сards.css';
 
 export const Cards = ({ postList, onClose }) => (
   <TransitionGroup

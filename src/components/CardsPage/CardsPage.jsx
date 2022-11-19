@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import s from './cardsPage.module.css';
+import s from './CardsPage.module.css';
 import { Pagination } from '../Pagination/Pagination';
 import { Cards } from '../Cards/Cards';
 import { SortCardsPage } from './SortCardsPage/SortCardsPage';

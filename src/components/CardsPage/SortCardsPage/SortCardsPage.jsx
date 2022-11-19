@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import s from './SortCardsPage.module.css';
 import { sortData, valueSortCard } from '../../../constants/sort-card';
 import { Button } from '../../Buttons/Button';
 import RadioButton from '../../RadioButton/RadioButton';
-import s from './sortCardsPage.module.css';
 
 export const SortCardsPage = ({
   onAddAllCards, onShowDeletedCards, removeShowDeletedCards, quantityPosts, setCards, onBackToCards,

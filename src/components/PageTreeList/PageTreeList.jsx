@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useLockBodyScroll, useToggle } from 'react-use';
+import s from './PageTreeList.module.css';
 import { dataHost } from '../../constants/host';
 import { Button } from '../Buttons/Button';
 import { Modal } from '../Modal/Modal';
-import s from './pageTreeList.module.css';
 import { TreeList } from './TreeList/TreeList';
 
 export const PageTreeList = ({ posts }) => {
@@ -13,63 +13,32 @@ export const PageTreeList = ({ posts }) => {
   const arrayMap = posts.map((el) => el.category);
   const arrayCategories = [...new Set(arrayMap)];
 
-  const handleNormalizeArray = (arr, arrCateg, categ) => {
-    const arrСonvers = [];
+  const normalizeArray = arrayCategories.reduce((newArray, item, index) => {
+    newArray.push({
+      bool: false,
+      id: index,
+      category: item,
+      nested_values: posts
+        .filter((post) => post.category === item)
+        .map((elementCategories) => ({
+          id: elementCategories.id,
+          category: elementCategories.category,
+          name: `${dataHost}${elementCategories.image}`,
+        })),
+    });
+    return (newArray);
+  }, []);
 
-    for (let i = 0; i < arrCateg.length; i++) {
-      let j = 0;
-      if (arr[i].category === arrCateg[j]) {
-        j++;
-        arrСonvers.push(
-          {
-            id: i,
-            category: arrCateg[i],
-            nested_values: handleNormalizeArray(arr, arr, arrCateg[i]),
-          },
-        );
-      } else if (categ === arr[i].category) {
-        arrСonvers.push(
-
-          {
-            id: arr[i].id,
-            bool: false,
-            category: arr[i].category,
-            name: `${dataHost}${arr[i].image}`,
-          },
-        );
-      }
-    }
-    return arrСonvers;
-  };
-
-  const array = handleNormalizeArray(posts, arrayCategories);
-
-  const [arrayTree, setArrayTree] = useState(array);
+  const [arrayTree, setArrayTree] = useState(normalizeArray);
   const [flagTree, setFlagTree] = useToggle(false);
   const [modal, setModal] = useState({ img: '', id: 0 });
   const [showModal, setShowModal] = useToggle(false);
 
   const handleAddTree = (category) => {
-    let newArr = [];
-    const sortTreeArray = arrayTree.map((elementGeneralArray) => {
-      if (elementGeneralArray.category === category) {
-        newArr = elementGeneralArray.nested_values.map((elementCategoryArray) => (
-          {
-            id: elementCategoryArray.id,
-            bool: !elementCategoryArray.bool,
-            category: elementCategoryArray.category,
-            name: elementCategoryArray.name,
-          }
-        ));
-      } else {
-        newArr = elementGeneralArray.nested_values;
-      }
-      return (
-        {
-          category: elementGeneralArray.category,
-          nested_values: newArr,
-        });
-    });
+    const sortTreeArray = arrayTree.map((mainBranch) => ({
+      ...mainBranch,
+      bool: (mainBranch.category === category ? !mainBranch.bool : mainBranch.bool),
+    }));
     setArrayTree(sortTreeArray);
   };
 
@@ -98,13 +67,16 @@ export const PageTreeList = ({ posts }) => {
     <div className={s.listPosition}>
 
       <Button onClick={setFlagTree}>древовидный список</Button>
+      {flagTree && arrayTree.map((elementArray) => (
+        (
+          <TreeList
+            key={elementArray.id}
+            elementArray={elementArray}
+            onAddTree={handleAddTree}
+            onImageModal={handleImageModal}
+          />
+        )))}
 
-      <TreeList
-        arrayTree={arrayTree}
-        onAddTree={handleAddTree}
-        flagTree={flagTree}
-        onImageModal={handleImageModal}
-      />
       { showModal && (
         <Modal onClose={setShowModal}>
           <span className={s.wrapImgModal}>

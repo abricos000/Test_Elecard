@@ -12,11 +12,11 @@ const App = () => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <>
       <Header onChangeRenderMethod={handleChangeRenderMethod} renderMethod={renderMethod} />
       <Main renderMethod={renderMethod} />
       <Footer>Footer</Footer>
-    </div>
+    </>
   );
 };
 
