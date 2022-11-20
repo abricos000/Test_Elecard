@@ -10,24 +10,20 @@ export const PageTreeList = ({ posts }) => {
   const pref = 'pref';
   const next = 'next';
 
-  const arrayMap = posts.map((el) => el.category);
-  const arrayCategories = [...new Set(arrayMap)];
-
-  const normalizeArray = arrayCategories.reduce((newArray, item, index) => {
-    newArray.push({
+  const normalizeArray = posts.reduce((newArray, item, index) => {
+    const newCategory = {
       bool: false,
-      id: index,
-      category: item,
-      nested_values: posts
-        .filter((post) => post.category === item)
-        .map((elementCategories) => ({
-          id: elementCategories.id,
-          category: elementCategories.category,
-          name: `${dataHost}${elementCategories.image}`,
-        })),
-    });
-    return (newArray);
-  }, []);
+      id: item.id,
+      category: item.category,
+      nested_values: [item],
+    };
+    newArray[newArray.length - 1].category === item.category
+      ? newArray[newArray.length - 1].nested_values.push(item)
+      : index === 0
+        ? newArray = [newCategory]
+        : newArray.push(newCategory);
+    return newArray;
+  }, [{}]);
 
   const [arrayTree, setArrayTree] = useState(normalizeArray);
   const [flagTree, setFlagTree] = useToggle(false);
@@ -45,7 +41,7 @@ export const PageTreeList = ({ posts }) => {
   useLockBodyScroll(showModal);
 
   const handleImageModal = (name, id) => {
-    setModal({ img: name, id });
+    setModal({ img: `${dataHost}${name}`, id });
     setShowModal();
   };
 
@@ -65,7 +61,6 @@ export const PageTreeList = ({ posts }) => {
 
   return (
     <div className={s.listPosition}>
-
       <Button onClick={setFlagTree}>древовидный список</Button>
       {flagTree && arrayTree.map((elementArray) => (
         (
@@ -76,7 +71,6 @@ export const PageTreeList = ({ posts }) => {
             onImageModal={handleImageModal}
           />
         )))}
-
       { showModal && (
         <Modal onClose={setShowModal}>
           <span className={s.wrapImgModal}>
@@ -89,7 +83,6 @@ export const PageTreeList = ({ posts }) => {
               >
                 &#10094;
               </button>
-
               <button
                 value={next}
                 className={s.btnNext}

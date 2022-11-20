@@ -1,25 +1,26 @@
 import React from 'react';
+import { dataHost } from '../../../../constants/host';
 import s from './BranchThee.module.css';
 
 export const BranchTheee = ({ onImageModal, elementCategories }) => (
   <div
     className={`${s.item} ${s.hoverImg}`}
-    value={elementCategories.name}
+    value={elementCategories.image}
   >
     <span
       className={s.text}
     >
-      {elementCategories.name}
+      {`${dataHost}${elementCategories.image}`}
     </span>
     <img
       role="presentation"
       className={s.spanImg}
       onClick={() => onImageModal(
-        elementCategories.name,
+        elementCategories.image,
         elementCategories.id,
       )}
-      value={elementCategories.name}
-      src={elementCategories.name}
+      value={elementCategories.image}
+      src={`${dataHost}${elementCategories.image}`}
       alt="изображение из категории, на которое надо нажать"
     />
   </div>
