@@ -11,16 +11,14 @@ const next = 'next';
 
 export const PageTreeList = ({ posts }) => {
   const normalizeArray = posts.reduce((newArray, item) => {
-    if (newArray[item.category]) {
-      newArray[item.category].nestedValues.push(item);
-    } else {
-      newArray[item.category] = {
+    newArray[item.category]
+      ? newArray[item.category].nestedValues.push(item)
+      : newArray[item.category] = {
         bool: false,
         id: item.id,
         category: item.category,
         nestedValues: [item],
       };
-    }
     return newArray;
   }, {});
 
