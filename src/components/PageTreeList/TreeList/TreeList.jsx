@@ -17,7 +17,7 @@ export const TreeList = ({
       {elementArray.category}
     </div>
     <div className={s.list}>
-      { elementArray.bool && elementArray.nested_values.map((elementCategories) => (
+      { elementArray.bool && elementArray.nestedValues.map((elementCategories) => (
         <BranchTheee
           key={elementCategories.id}
           onImageModal={onImageModal}

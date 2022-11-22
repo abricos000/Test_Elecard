@@ -1,12 +1,7 @@
-:root {
-  --white: #ffffff;
-  --color-gray: #bfbfbf;
-  --gray-4: #eaeaea;
-}
 .mainContent{
   position: relative;
   font-size: 24px;
-  background: var(--gray-4);
+  background: var(--gray-100);
   min-height: 90vh;
   height: 100%;
   max-width: 1200px;
@@ -23,12 +18,12 @@
   border: none;
   background: var(--white);
   top: 10%;
-  color: var(--color-gray);
+  color: var(--color-gray-300);
   padding: 10px;
   cursor: pointer;
   font-size: 14px;
   border-radius: 10px;
-  border: 1px solid var(--color-gray);
+  border: 1px solid var(--color-gray-300);
   transition: .4s;
 }
 .scrollTop:hover {

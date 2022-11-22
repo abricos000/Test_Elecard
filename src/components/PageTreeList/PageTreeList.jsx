@@ -6,26 +6,27 @@ import { Button } from '../Buttons/Button';
 import { Modal } from '../Modal/Modal';
 import { TreeList } from './TreeList/TreeList';
 
+const pref = 'pref';
+const next = 'next';
+
 export const PageTreeList = ({ posts }) => {
-  const pref = 'pref';
-  const next = 'next';
-
-  const normalizeArray = posts.reduce((newArray, item, index) => {
-    const newCategory = {
-      bool: false,
-      id: item.id,
-      category: item.category,
-      nested_values: [item],
-    };
-    newArray[newArray.length - 1].category === item.category
-      ? newArray[newArray.length - 1].nested_values.push(item)
-      : index === 0
-        ? newArray = [newCategory]
-        : newArray.push(newCategory);
+  // new Set()
+  // new Map()
+  const normalizeArray = posts.reduce((newArray, item) => {
+    if (newArray[item.category]) {
+      newArray[item.category].nestedValues.push(item);
+    } else {
+      newArray[item.category] = {
+        bool: false,
+        id: item.id,
+        category: item.category,
+        nestedValues: [item],
+      };
+    }
     return newArray;
-  }, [{}]);
+  }, {});
 
-  const [arrayTree, setArrayTree] = useState(normalizeArray);
+  const [arrayTree, setArrayTree] = useState(Object.values(normalizeArray));
   const [flagTree, setFlagTree] = useToggle(false);
   const [modal, setModal] = useState({ img: '', id: 0 });
   const [showModal, setShowModal] = useToggle(false);
