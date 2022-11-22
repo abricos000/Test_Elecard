@@ -10,8 +10,6 @@ const pref = 'pref';
 const next = 'next';
 
 export const PageTreeList = ({ posts }) => {
-  // new Set()
-  // new Map()
   const normalizeArray = posts.reduce((newArray, item) => {
     if (newArray[item.category]) {
       newArray[item.category].nestedValues.push(item);
