@@ -3,9 +3,9 @@ import s from './CardsPage.module.css';
 import { Pagination } from '../Pagination/Pagination';
 import { Cards } from '../Cards/Cards';
 import { SortCardsPage } from './SortCardsPage/SortCardsPage';
-import { clearRemovedCards, getRemovedCardList, setRemovedCard } from '../utils/removed-cards';
+import { clearRemovedCards, getRemovedCardList, setRemovedCard } from '../../utils/removed-cards';
 import { numberPostsPerPage } from '../../constants/number-of-posts-per-page';
-import { getCardList, setCardList, clearCards } from '../utils/cards';
+import { getCardList, setCardList, clearCards } from '../../utils/cards';
 
 export const CardsPage = ({ posts, onScrollToTop }) => {
   const [cards, setCards] = useState(getCardList().length ? getCardList() : posts);
@@ -14,13 +14,11 @@ export const CardsPage = ({ posts, onScrollToTop }) => {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const postList = cards.slice(firstPostIndex, lastPostIndex);
-  const listPageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(cards.length / postsPerPage); i++) {
-    if (i === 1) {
-      listPageNumbers.push({ number: i, status: true });
-    } else listPageNumbers.push({ number: i, status: false });
-  }
+  const filledArray = Array(Math.ceil(cards.length / postsPerPage)).fill();
+  const listPageNumbers = filledArray.map((_, index) => (
+    { number: index + 1, status: index === 0 }
+  ));
 
   const [pageNumbers, setPageNumbers] = useState([]);
 
@@ -28,23 +26,16 @@ export const CardsPage = ({ posts, onScrollToTop }) => {
     setPageNumbers(listPageNumbers);
   }, [listPageNumbers.length]);
 
-  const handlePaginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-
+  const handlePaginate = (currentPageNumber) => {
+    setCurrentPage(currentPageNumber);
     onScrollToTop();
-
-    setPageNumbers(pageNumbers.map((e) => {
-      if (pageNumber === e.number) {
-        return ({ number: e.number, status: true });
-      }
-      return ({ number: e.number, status: false });
-    }));
+    setPageNumbers(pageNumbers.map((pageNumber) => (
+      { number: pageNumber.number, status: currentPageNumber === pageNumber.number })));
   };
 
   const removePost = (post) => {
     setCards((prefCards) => prefCards.filter((p) => p.id !== post.id));
     setCardList(cards.filter((p) => p.id !== post.id));
-
     setRemovedCard(post);
   };
 
@@ -74,7 +65,7 @@ export const CardsPage = ({ posts, onScrollToTop }) => {
         {postList.length
           ? (
             <Cards
-              key={postList[0] ? postList[0].id : 0}
+              key={postList[numberPostsPerPage] ? postList[numberPostsPerPage].id : 0}
               postList={postList}
               onClose={removePost}
             />

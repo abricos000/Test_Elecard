@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Main } from './components/Main/Main';
-import { RenderMethod } from './constants/render-method';
+import { renderMethodPage } from './constants/render-method';
 
 const App = () => {
-  const [renderMethod, setRenderMethod] = useState(RenderMethod.cards);
+  const [renderMethod, setRenderMethod] = useState(renderMethodPage.cards);
 
-  const handleChangeRenderMethod = (e) => {
-    setRenderMethod(e.target.value);
+  const handleChangeRenderMethod = (currentPageMethod) => {
+    setRenderMethod(currentPageMethod);
   };
 
   return (

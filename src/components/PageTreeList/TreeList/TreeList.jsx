@@ -1,16 +1,11 @@
 import React from 'react';
-import { BranchTheee } from './BranchThee/BranchThee';
+import { BranchThee } from './BranchThee/BranchThee';
 import s from './TreeList.module.css';
 
-export const TreeList = ({
-  onAddTree, onImageModal, elementArray,
-}) => (
-  <div
-    className={s.item}
-  >
+export const TreeList = ({ onAddTree, onClickImageModal, elementArray }) => (
+  <div className={s.item}>
     <div
-      value={elementArray.category}
-      onClick={(e) => onAddTree(e.target.innerText)}
+      onClick={() => onAddTree(elementArray.category)}
       className={`${s.list} ${s.category}`}
       role="presentation"
     >
@@ -18,9 +13,9 @@ export const TreeList = ({
     </div>
     <div className={s.list}>
       { elementArray.bool && elementArray.nestedValues.map((elementCategories) => (
-        <BranchTheee
+        <BranchThee
           key={elementCategories.id}
-          onImageModal={onImageModal}
+          onClickImageModal={onClickImageModal}
           elementCategories={elementCategories}
         />
       ))}

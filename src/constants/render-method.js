@@ -1,1 +1,1 @@
-export const RenderMethod = { cards: 'cards', tree: 'tree' };
+export const renderMethodPage = { cards: 'cards', tree: 'tree' };

@@ -28,16 +28,15 @@ export const PageTreeList = ({ posts }) => {
   const [showModal, setShowModal] = useToggle(false);
 
   const handleAddTree = (category) => {
-    const sortTreeArray = arrayTree.map((mainBranch) => ({
+    setArrayTree((prefArray) => prefArray.map((mainBranch) => ({
       ...mainBranch,
       bool: (mainBranch.category === category ? !mainBranch.bool : mainBranch.bool),
-    }));
-    setArrayTree(sortTreeArray);
+    })));
   };
 
   useLockBodyScroll(showModal);
 
-  const handleImageModal = (name, id) => {
+  const handleClickImageModal = (name, id) => {
     setModal({ img: `${dataHost}${name}`, id });
     setShowModal();
   };
@@ -49,7 +48,6 @@ export const PageTreeList = ({ posts }) => {
       const currentPost = posts.find((post, index) => index === currentIndex - 1);
       setModal({ img: `${dataHost}${currentPost.image}`, id: currentPost.id });
     }
-
     if (id < posts.length - 1 && value === next) {
       const currentPost = posts.find((post, index) => index === currentIndex + 1);
       setModal({ img: `${dataHost}${currentPost.image}`, id: currentPost.id });
@@ -65,7 +63,7 @@ export const PageTreeList = ({ posts }) => {
             key={elementArray.id}
             elementArray={elementArray}
             onAddTree={handleAddTree}
-            onImageModal={handleImageModal}
+            onClickImageModal={handleClickImageModal}
           />
         )))}
       { showModal && (
@@ -73,17 +71,15 @@ export const PageTreeList = ({ posts }) => {
           <span className={s.wrapImgModal}>
             <div className={s.btns}>
               <button
-                value={pref}
                 className={s.btnPref}
-                onClick={(event) => handleSwitchingModalImage(modal.id, event.target.value)}
+                onClick={() => handleSwitchingModalImage(modal.id, pref)}
                 type="button"
               >
                 &#10094;
               </button>
               <button
-                value={next}
                 className={s.btnNext}
-                onClick={(event) => handleSwitchingModalImage(modal.id, event.target.value)}
+                onClick={() => handleSwitchingModalImage(modal.id, next)}
                 type="button"
               >
                 &#10095;

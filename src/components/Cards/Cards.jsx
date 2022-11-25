@@ -5,16 +5,14 @@ import s from './Сards.module.css';
 import './Сards.css';
 
 export const Cards = ({ postList, onClose }) => (
-  <TransitionGroup
-    className={s.cards}
-  >
-    {postList.map((el) => (
+  <TransitionGroup className={s.cards}>
+    {postList.map((post) => (
       <CSSTransition
-        key={el.id}
+        key={post.id}
         timeout={300}
         classNames="card"
       >
-        <Card onRemove={onClose} post={el} />
+        <Card onRemove={onClose} post={post} />
       </CSSTransition>
     ))}
   </TransitionGroup>

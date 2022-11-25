@@ -10,12 +10,12 @@
   display: flex;
   justify-content: center;
 }
-.p{
+.wrapper{
   margin: 10px;
   padding: 0; 
   font-size: 20px;
 }
-.p input{
+.wrapper input{
   outline: none;
   cursor: pointer;
 }
@@ -23,19 +23,19 @@
   cursor: pointer;
 }
 @media screen and (min-width: 700px) and (max-width: 920px){
-  .p{
+  .wrapper{
     font-size: 18px;
     margin: 10px;
   }
 }
 @media screen and (min-width: 550px) and (max-width: 700px){
-  .p{
+  .wrapper{
     font-size: 16px;
     margin: 10px;
   }
 }
 @media screen and (min-width: 370px) and (max-width: 550px){
-  .p{
+  .wrapper{
     font-size: 14px;
     margin: 8px;
   }
@@ -44,7 +44,7 @@
   }
 }
 @media screen and (max-width: 370px){
-  .p{
+  .wrapper{
     font-size: 10px;
     margin: 3px;
   }

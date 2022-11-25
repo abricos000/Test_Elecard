@@ -1,5 +1,5 @@
 import React from 'react';
-import { MathDateMethod } from '../../../constants/math-method';
+import { mathDateMethod } from '../../../constants/math-method';
 import { dataHost } from '../../../constants/host';
 import s from './Сard.module.css';
 
@@ -31,10 +31,10 @@ export const Card = ({ post, onRemove }) => (
         <span>
           <b>размер файла</b>
           {' '}
-          {Math.ceil(post.filesize / MathDateMethod.BInKb)}
+          {Math.ceil(post.filesize / mathDateMethod.bInKb)}
           Кб
           {' '}
-          {post.filesize % MathDateMethod.BInKb}
+          {post.filesize % mathDateMethod.bInKb}
           байт
         </span>
 

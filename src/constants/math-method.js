@@ -1,1 +1,1 @@
-export const MathDateMethod = { BInKb: 1024 };
+export const mathDateMethod = { bInKb: 1024 };

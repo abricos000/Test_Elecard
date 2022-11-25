@@ -5,7 +5,7 @@ import { useWindowScroll } from 'react-use';
 import s from './Main.module.css';
 import { PageTreeList } from '../PageTreeList/PageTreeList';
 import { CardsPage } from '../CardsPage/CardsPage';
-import { RenderMethod } from '../../constants/render-method';
+import { renderMethodPage } from '../../constants/render-method';
 import { host } from '../../constants/host';
 
 export const Main = ({ renderMethod }) => {
@@ -35,7 +35,7 @@ export const Main = ({ renderMethod }) => {
   return (
     <main id="top" className={s.mainContent}>
       {posts.length && (
-        renderMethod === RenderMethod.cards
+        renderMethod === renderMethodPage.cards
           ? (
             <CardsPage
               posts={posts}

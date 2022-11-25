@@ -27,6 +27,7 @@ module.exports = {
     'linebreak-style': 'off',
     'no-param-reassign': 'off',
     'no-unused-expressions': 'off',
+    'react/jsx-filename-extension': 'off',
     'jsx-a11y/label-has-associated-control': ['error', {
       required: {
         some: ['nesting', 'id'],
